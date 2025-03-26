@@ -31,7 +31,7 @@ userRouter.route("/signup").post(async (req: Request, res: Response) => {
             data: {
                 firstName, lastName, phoneNo, City: city, Pincode: pincode, gender, password
             }
-        })
+        });
 
         return res.status(200).json({status: true, message: "user successfully created", data: createUser})
 

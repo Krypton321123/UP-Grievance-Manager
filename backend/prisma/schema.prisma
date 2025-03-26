@@ -49,7 +49,7 @@ model Grievance {
   type         issueTypes
   priority     LEVEL
   admin_id     String
-  admin        admin      @relation(fields: [admin_id], references: [admin_id])
+  admin        admin?     @relation(fields: [admin_id], references: [admin_id])
 }
 
 model admin {
