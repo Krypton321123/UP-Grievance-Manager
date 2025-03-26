@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum issueTypes {
+  HEALTH
+  FINANCIAL
+  MUNICIPAL
+  EDUCATION
+  ENVIRONMENTAL
+}
+
+enum LEVEL {
+  HIGH
+  MEDIUM
+  LOW
+}
+
+model User {
+  user_id    String      @id @default(cuid())
+  firstName  String
+  lastName   String
+  gender     String
+  City       String
+  Pincode    String
+  phoneNo    String
+  password   String
+  Grievances Grievance[]
+}
+
+model Grievance {
+  grievance_id String     @id @default(cuid())
+  title        String
+  description  String
+  user_id      String
+  user         User       @relation(references: [user_id], fields: [user_id])
+  image        String?
+  type         issueTypes
+  priority     LEVEL
+  admin_id     String
+  admin        admin?     @relation(fields: [admin_id], references: [admin_id])
+}
+
+model admin {
+  admin_id           String       @id @default(cuid())
+  username           String
+  password           String
+  grievancesAssigned Grievance[]
+  specialisation     issueTypes[]
+}
