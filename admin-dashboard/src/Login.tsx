@@ -20,8 +20,8 @@ function Login() {
         const response: any = await axios.post(`${import.meta.env.VITE_API}/admin/login`, {username: username.trim(), password: password.trim()}); 
         console.log(response.status === 200)
         if (response.status === 200) {
-            localStorage.set('logged-in', 'true'); 
-            <Navigate to={'/dashboard'}/>
+            localStorage.setItem('logged-in', 'true'); 
+            navigate('/dashboard')
         }
     } catch (err) {
 

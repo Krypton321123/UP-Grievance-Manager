@@ -1,48 +1,45 @@
 import React, { useEffect, useState } from "react";
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import axios from 'axios'
+import L from "leaflet";
+import axios from "axios";
 
 const Dashboard: React.FC = () => {
-
-  const [newGrievances, setNewGrievances] = useState(0); 
-  const [pendingGrievances, setPendingGrievances] = useState(0); 
-  const [resolvedGrievances, setResolvedGrievances] = useState(0); 
+  const [newGrievances, setNewGrievances] = useState(0);
+  const [pendingGrievances, setPendingGrievances] = useState(0);
+  const [resolvedGrievances, setResolvedGrievances] = useState(0);
+  const [grievanceHotspots, setGrievanceHotspots] = useState<any[]>([]);
 
   useEffect(() => {
-
     const fetchData = async () => {
-      const response: any = await axios.get(`${import.meta.env.VITE_API}/admin/dashboard`); 
-
-      setNewGrievances(response.data.data.newGrievances.length)
-      setPendingGrievances(response.data.data.pendingGrievances.length)
-      setResolvedGrievances(response.data.data.resolvedGrievances.length)
-
-      console.log(newGrievances)
-
-      console.log(response)
-
-    }
-
-    fetchData(); 
-
-  }, [])
+      try {
+        const response: any = await axios.get(`${import.meta.env.VITE_API}/admin/dashboard`)
+        setNewGrievances(response.data.data.newGrievances.length);
+        setPendingGrievances(response.data.data.pendingGrievances.length);
+        setResolvedGrievances(response.data.data.resolvedGrievances.length);
+      } catch (error) {
+        console.error("Error fetching dashboard data", error);
+      }
+    };
+    
+    const mockHotspots = [
+      { district: "Lucknow", latitude: 26.8467, longitude: 80.9462, grievanceType: "Road Infrastructure" },
+      { district: "Kanpur", latitude: 26.4499, longitude: 80.3319, grievanceType: "Water Supply" },
+      { district: "Varanasi", latitude: 25.3176, longitude: 82.9739, grievanceType: "Power Cuts" },
+      { district: "Agra", latitude: 27.1767, longitude: 78.0081, grievanceType: "Sanitation" },
+      { district: "Meerut", latitude: 28.9845, longitude: 77.7064, grievanceType: "Traffic Congestion" },
+      { district: "Prayagraj", latitude: 25.4358, longitude: 81.8463, grievanceType: "Waste Management" },
+      { district: "Gorakhpur", latitude: 26.7606, longitude: 83.3732, grievanceType: "Public Safety" },
+      { district: "Noida", latitude: 28.5355, longitude: 77.3910, grievanceType: "Air Pollution" }
+    ];
+    
+    setGrievanceHotspots(mockHotspots);
+    fetchData();
+  }, []);
 
   return (
     <div className="bg-blue-50 min-h-screen p-6 text-gray-900">
-      <aside className="fixed left-0 top-0 h-full w-64 bg-white p-4 shadow-md">
-        <h2 className="text-xl font-bold text-blue-700">Grievance Portal</h2>
-        <nav className="mt-6">
-          <ul>
-            <li className="p-2 rounded-md hover:bg-blue-100">Dashboard</li>
-            <li className="p-2 rounded-md hover:bg-blue-100">Grievances</li>
-            <li className="p-2 rounded-md hover:bg-blue-100">Insights</li>
-            <li className="p-2 rounded-md hover:bg-blue-100">Settings</li>
-          </ul>
-        </nav>
-      </aside>
-
-      <main className="ml-72">
+      <main>
         <h1 className="text-3xl font-bold mb-4">Dashboard</h1>
         <p className="text-gray-600">Summary of grievance activity and insights.</p>
 
@@ -62,30 +59,34 @@ const Dashboard: React.FC = () => {
         </div>
 
         <section className="mt-8">
-          <h2 className="text-xl font-semibold">Geographic Hotspots</h2>
+          <h2 className="text-xl font-semibold">Grievance Hotspots in Uttar Pradesh</h2>
           <div className="mt-4 h-72">
-            <MapContainer center={[38.9072, -77.0369]} zoom={13} className="h-full w-full rounded-md shadow">
+            <MapContainer
+              center={[26.8467, 80.9462]}
+              zoom={6}
+              className="h-full w-full rounded-md shadow"
+            >
               <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+              {grievanceHotspots.map((hotspot, index) => (
+                <Marker
+                  key={index}
+                  position={[hotspot.latitude, hotspot.longitude]}
+                  icon={L.icon({
+                    iconUrl: "https://leafletjs.com/examples/custom-icons/leaf-orange.png",
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    popupAnchor: [1, -34],
+                  })}
+                >
+                  <Popup>
+                    <strong>{hotspot.district}</strong>
+                    <br />
+                    {hotspot.grievanceType}
+                  </Popup>
+                </Marker>
+              ))}
             </MapContainer>
           </div>
-        </section>
-
-        <section className="mt-8">
-          <h2 className="text-xl font-semibold">AI Insights</h2>
-          <ul className="mt-4 space-y-2">
-            <li className="bg-white p-4 rounded shadow">
-              <strong>Noise Complaints Spike in Meadowbrook</strong>
-              <p className="text-gray-600">A noticeable increase in noise complaints near Meadowbrook.</p>
-            </li>
-            <li className="bg-white p-4 rounded shadow">
-              <strong>Link Found Between Gatherings & Nuisance Reports</strong>
-              <p className="text-gray-600">Public events seem linked to nuisance reports.</p>
-            </li>
-            <li className="bg-white p-4 rounded shadow">
-              <strong>Recommendation: Community Engagement</strong>
-              <p className="text-gray-600">Consider focused outreach initiatives.</p>
-            </li>
-          </ul>
         </section>
       </main>
     </div>
