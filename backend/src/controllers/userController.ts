@@ -5,11 +5,11 @@ const userRouter = Router();
 
 userRouter.route("/signup").post(async (req: Request, res: Response) => {
     
-    const { firstName, lastName, phoneNo, gender, city, pincode, password, confirmPassword } = req.body; 
+    const { firstName, lastName, phoneNo, aadharNumber, gender, city, pincode, password, confirmPassword } = req.body; 
 
     try {
 
-        if (!firstName || !lastName || !phoneNo || !gender || !city || !pincode) {
+        if (!firstName || !lastName || !phoneNo || !gender || !city || !pincode || !aadharNumber) {
             return res.status(400).json({ status: false, message: "Wrong inputs", data: {}})
         }
 
@@ -25,11 +25,13 @@ userRouter.route("/signup").post(async (req: Request, res: Response) => {
 
         if (existingUser) {
             return res.status(403).json({ status: false, message: "User already exists with this phone no", data: {}})
-        }
+        }   
+
+
 
         const createUser = await prisma.user.create({
             data: {
-                firstName, lastName, phoneNo, City: city, Pincode: pincode, gender, password
+                firstName, lastName, phoneNo, City: city, Pincode: pincode, gender, password, aadharNumber
             }
         });
 
@@ -42,12 +44,12 @@ userRouter.route("/signup").post(async (req: Request, res: Response) => {
 })
 
 userRouter.route('/login').post(async (req: Request, res: Response) => {
-    const { phoneNo, password } = req.body; 
+    const { aadharNumber, password } = req.body; 
 
     try {  
         const existingUser = await prisma.user.findFirst({
             where: {
-                phoneNo
+                aadharNumber
             }
         })
 

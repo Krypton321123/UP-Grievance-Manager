@@ -27,10 +27,17 @@ enum LEVEL {
   LOW
 }
 
+enum Status {
+  OPEN 
+  INPROGRESS
+  CLOSED
+}
+
 model User {
   user_id    String      @id @default(cuid())
   firstName  String
   lastName   String
+  aadharNumber String
   gender     String
   City       String
   Pincode    String
@@ -47,8 +54,13 @@ model Grievance {
   user         User       @relation(references: [user_id], fields: [user_id])
   image        String?
   type         issueTypes
-  priority     LEVEL
-  admin_id     String
+  priority     LEVEL?
+  Pincode      String 
+  City         String
+  created_at   String
+  solved_at    String? 
+  admin_id     String?
+  status      Status
   admin        admin?     @relation(fields: [admin_id], references: [admin_id])
 }
 
@@ -58,4 +70,5 @@ model admin {
   password           String
   grievancesAssigned Grievance[]
   specialisation     issueTypes[]
+  designation        String
 }

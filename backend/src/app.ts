@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors'; 
-import userRouter from './controllers/userController';
+import userRouter from './controllers/userController.js';
+import grievanceRouter from './controllers/grievanceController.js';
+import adminRouter from './controllers/adminController.js';
 
 const app = express(); 
 
@@ -10,7 +12,9 @@ app.use(cors({
     origin: '*' // for connected
 })); 
 
-app.use('/user', userRouter)
+app.use('/api/user', userRouter)
+app.use('/api/grievance', grievanceRouter)
+app.use('/api/admin', adminRouter)
 
 
 export default app; 

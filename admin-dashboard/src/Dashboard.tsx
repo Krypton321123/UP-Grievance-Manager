@@ -1,8 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import axios from 'axios'
 
 const Dashboard: React.FC = () => {
+
+  const [newGrievances, setNewGrievances] = useState(0); 
+  const [pendingGrievances, setPendingGrievances] = useState(0); 
+  const [resolvedGrievances, setResolvedGrievances] = useState(0); 
+
+  useEffect(() => {
+
+    const fetchData = async () => {
+      const response: any = await axios.get(`${import.meta.env.VITE_API}/admin/dashboard`); 
+
+      setNewGrievances(response.data.data.newGrievances.length)
+      setPendingGrievances(response.data.data.pendingGrievances.length)
+      setResolvedGrievances(response.data.data.resolvedGrievances.length)
+
+      console.log(newGrievances)
+
+      console.log(response)
+
+    }
+
+    fetchData(); 
+
+  }, [])
+
   return (
     <div className="bg-blue-50 min-h-screen p-6 text-gray-900">
       <aside className="fixed left-0 top-0 h-full w-64 bg-white p-4 shadow-md">
@@ -24,15 +49,15 @@ const Dashboard: React.FC = () => {
         <div className="grid grid-cols-3 gap-4 mt-6">
           <div className="p-4 bg-white shadow rounded">
             <h3 className="text-lg font-semibold">New Grievances</h3>
-            <p className="text-2xl font-bold text-blue-700">23</p>
+            <p className="text-2xl font-bold text-blue-700">{newGrievances}</p>
           </div>
           <div className="p-4 bg-white shadow rounded">
             <h3 className="text-lg font-semibold">Pending Grievances</h3>
-            <p className="text-2xl font-bold text-blue-700">57</p>
+            <p className="text-2xl font-bold text-blue-700">{pendingGrievances}</p>
           </div>
           <div className="p-4 bg-white shadow rounded">
             <h3 className="text-lg font-semibold">Resolved Grievances</h3>
-            <p className="text-2xl font-bold text-blue-700">148</p>
+            <p className="text-2xl font-bold text-blue-700">{resolvedGrievances}</p>
           </div>
         </div>
 
