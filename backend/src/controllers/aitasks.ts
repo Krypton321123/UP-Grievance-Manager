@@ -9,6 +9,9 @@ const model = genAI.getGenerativeModel({
 })
 
 export const checkFraudulent = async (title: string, description: string) => {
+
+    console.log(title, description)
+
     const prompt = `You are a fraudulent Grievance checker, you will get the title and description of the 
                     grievance: ${title} is the grievance title and ${description} is the grievance description
                     Kindly, tell if this is fraudulent and also strictly just give a one word answer, either true or false! AGAIN EITHER TRUE OR FALSE`

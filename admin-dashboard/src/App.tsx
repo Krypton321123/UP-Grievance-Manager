@@ -15,17 +15,11 @@ const Support = () => <h1 className="text-3xl text-center mt-10">Support</h1>;
 
 const App = () => {
 
-  const [loggedIn, setLoggedIn] = useState(false); 
-
-  useEffect(() => {
-    const isLogIn = localStorage.getItem('logged-in');
-
-    isLogIn === 'true' ? setLoggedIn(true) : setLoggedIn(false)
-  }, [])
+ 
   return (
     <Router>
-      {loggedIn ? <></>: <Header />}
-      <main className="pt-16"> {/* Adjust for fixed header */}
+       <Header />
+      <main className="pt-16"> 
         <Routes>
           <Route path="/" element={<HeroSection />} />
           <Route path="/dashboard" element={<Dashboard />} />

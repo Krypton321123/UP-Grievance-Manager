@@ -27,7 +27,7 @@ export default function GrievanceForm() {
         return Alert.alert("Error", "Please fill all required fields");
       }
 
-      const response: any = await axios.post(`http://localhost:8000/api/grievance/create`, form);
+      const response: any = await axios.post(`http://192.168.76.80:8000/api/grievance/create`, form);
 
       if (response.status === 200) {
         Alert.alert("Success", "Grievance submitted successfully!");

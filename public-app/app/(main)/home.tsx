@@ -12,7 +12,7 @@ const Home = () => {
         <Text className='text-2xl font-bold text-center mb-6'>Grievance Portal</Text>
 
         <TouchableOpacity 
-          className='w-full mb-4 h-[33%] bg-white p-6 rounded-2xl shadow-md border border-gray-300 flex items-center justify-center'
+          className='w-full mb-4 h-[25%] bg-white p-6 rounded-2xl shadow-md border border-gray-300 flex items-center justify-center'
           onPress={() => router.push('/(main)/GrievanceForm')}
           activeOpacity={0.8}
         >
@@ -20,7 +20,7 @@ const Home = () => {
         </TouchableOpacity>
 
         <TouchableOpacity 
-          className='w-full mb-4 h-[33%] bg-white p-6 rounded-2xl shadow-md border border-gray-300 flex items-center justify-center'
+          className='w-full mb-4 h-[25%] bg-white p-6 rounded-2xl shadow-md border border-gray-300 flex items-center justify-center'
           onPress={() => router.push('/(main)/PreviousGrievances')}
           activeOpacity={0.8}
         >
@@ -28,7 +28,7 @@ const Home = () => {
         </TouchableOpacity>
 
         <TouchableOpacity 
-          className='w-full h-[33%] bg-white p-6 rounded-2xl shadow-md border border-gray-300 flex items-center justify-center'
+          className='w-full h-[25%] bg-white p-6 rounded-2xl shadow-md border border-gray-300 flex items-center justify-center'
           onPress={() => router.push('/(main)/CheckStatus')}
           activeOpacity={0.8}
         >

@@ -50,8 +50,8 @@ model Grievance {
   grievance_id String     @id @default(cuid())
   title        String
   description  String
-  user_id      String
-  user         User       @relation(references: [user_id], fields: [user_id])
+  user_id      String?
+  user         User?       @relation(references: [user_id], fields: [user_id])
   image        String?
   type         issueTypes
   priority     LEVEL?

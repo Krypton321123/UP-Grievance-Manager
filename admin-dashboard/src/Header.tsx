@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false)
+
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem('logged-in')
+
+    isLoggedIn === 'true' ? setLoggedIn(true) : setLoggedIn(false)
+  }, [])
 
   return (
     <header className="bg-white shadow-md w-full fixed top-0 left-0 z-50">
@@ -24,7 +31,7 @@ const Header = () => {
 
         
         <Link to="/login" className="hidden md:block bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition">
-          Login
+          {loggedIn ? "Logout" : "Login"}
         </Link>
 
 
