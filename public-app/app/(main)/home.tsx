@@ -21,7 +21,7 @@ const Home = () => {
 
         <TouchableOpacity 
           className='w-full mb-4 h-[33%] bg-white p-6 rounded-2xl shadow-md border border-gray-300 flex items-center justify-center'
-          onPress={() => ""}
+          onPress={() => router.push('/(main)/PreviousGrievances')}
           activeOpacity={0.8}
         >
           <Text className='text-2xl font-semibold text-green-600'>📜 Check Previous Grievances</Text>
@@ -29,7 +29,7 @@ const Home = () => {
 
         <TouchableOpacity 
           className='w-full h-[33%] bg-white p-6 rounded-2xl shadow-md border border-gray-300 flex items-center justify-center'
-          onPress={() => ""}
+          onPress={() => router.push('/(main)/CheckStatus')}
           activeOpacity={0.8}
         >
           <Text className='text-2xl font-semibold text-yellow-600'>🔍 Check Grievance Status</Text>
