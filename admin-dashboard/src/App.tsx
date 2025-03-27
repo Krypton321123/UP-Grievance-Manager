@@ -5,6 +5,7 @@ import HeroSection from "./HeroSection";
 import PendingGrievances from "./PendingGrievencies";
 import InsightsDashboard from "./InsightsDashboard";
 import Login from "./Login";
+import { useEffect, useState } from "react";
 
 
 const Home = () => <h1 className="text-3xl text-center mt-10">Welcome to UP IGRS</h1>;
@@ -13,9 +14,17 @@ const Support = () => <h1 className="text-3xl text-center mt-10">Support</h1>;
 
 
 const App = () => {
+
+  const [loggedIn, setLoggedIn] = useState(false); 
+
+  useEffect(() => {
+    const isLogIn = localStorage.getItem('logged-in');
+
+    isLogIn === 'true' ? setLoggedIn(true) : setLoggedIn(false)
+  }, [])
   return (
     <Router>
-      <Header />
+      {loggedIn ? <></>: <Header />}
       <main className="pt-16"> {/* Adjust for fixed header */}
         <Routes>
           <Route path="/" element={<HeroSection />} />

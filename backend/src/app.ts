@@ -3,7 +3,6 @@ import cors from 'cors';
 import userRouter from './controllers/userController.js';
 import grievanceRouter from './controllers/grievanceController.js';
 import adminRouter from './controllers/adminController.js';
-import modelRouter from './controllers/aitasks.js';
 
 const app = express(); 
 

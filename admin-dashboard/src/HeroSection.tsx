@@ -1,7 +1,17 @@
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 import { FaCheckCircle, FaExclamationTriangle, FaUsers, FaClipboardList } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
+
+  const navigate = useNavigate(); 
+
+  useEffect(() => {
+    const loggedIn = localStorage.getItem('logged-in')
+
+    loggedIn === 'true' ? navigate('/dashboard') : ""
+  }, [])
   // Hardcoded Stats
   const totalGrievances = 245;
   const pendingGrievances = 78;
