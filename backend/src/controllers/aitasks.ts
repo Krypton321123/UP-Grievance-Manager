@@ -8,8 +8,20 @@ const model = genAI.getGenerativeModel({
     model: 'gemini-2.0-flash'
 })
 
+export const checkFraudulent = async (title: string, description: string) => {
+    const prompt = `You are a fraudulent Grievance checker, you will get the title and description of the 
+                    grievance: ${title} is the grievance title and ${description} is the grievance description
+                    Kindly, tell if this is fraudulent and also strictly just give a one word answer, either true or false! AGAIN EITHER TRUE OR FALSE`
 
-const generatePriority = (grievanceTitle: string, grievanceDescription: string) => {
+    const result = model.generateContent(prompt);
+
+    const isFraud = (await result).response.text(); 
+
+    return isFraud;
+    
+}
+
+export const generatePriority = async (grievanceTitle: string, grievanceDescription: string) => {
 
     console.log(grievanceDescription, grievanceTitle)
 
@@ -19,7 +31,9 @@ const generatePriority = (grievanceTitle: string, grievanceDescription: string) 
                     I want you to only return one of these three values as your answer, not even a two word answer, it should be a one word answer - HIGH / MEDIUM / LOW
                     It is very important that your response is one of these three - HIGH, MEDIUM OR LOW, You can go ahead and give the answer now
                     Before you answer, I want you to know that a HIGH level grievance is what's needed to be solved by the state government immediately, 
-                    MEDIUM level is problems that need to be taken a look at by the state government, and LOW level problems are those which do not concern the government at all`                const result = model.generateContent(prompt); 
+                    MEDIUM level is problems that need to be taken a look at by the state government, and LOW level problems are those which do not concern the government at all`                
+        
+        const result = model.generateContent(prompt); 
 
         const priority = (await result).response.text()
 
@@ -27,7 +41,8 @@ const generatePriority = (grievanceTitle: string, grievanceDescription: string) 
    
 }
 
-export default generatePriority
+console.log(checkFraudulent("The UP Cm died", "The cm died by my hands").then(result => console.log(result)))
+
 
 
 
