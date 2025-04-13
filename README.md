@@ -1,8 +1,8 @@
-# UP-Grievance-Manager 🚨
+# UP-Grievance-System
 
 An open-source grievance management system designed to streamline issue tracking and resolution for both public users and administrators. This system is modular, scalable, and suitable for civic platforms or government services.
 
-## 📁 Project Structure
+##  Project Structure
 
 ```bash
 UP-Grievance-Manager/
@@ -14,6 +14,7 @@ UP-Grievance-Manager/
 ├── .gitignore
 ├── package-lock.json
 └── README.md
+```
 
 # Features
 - Public grievance filing
