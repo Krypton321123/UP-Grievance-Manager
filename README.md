@@ -45,7 +45,7 @@ UP-Grievance-Manager/
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/yourusername/grievance-system.git
+git clone https://github.com/anamikalodhi01/grievance-system.git
 cd grievance-system
 
 # 2. Install dependencies
