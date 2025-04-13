@@ -28,7 +28,7 @@ UP-Grievance-Manager/
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Layer        | Tools/Frameworks                              |
 |--------------|-----------------------------------------------|
